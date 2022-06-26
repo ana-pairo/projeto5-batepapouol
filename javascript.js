@@ -1,5 +1,5 @@
 let contato = "Todos";
-let visibilidade = "publico";
+let visibilidade = "Público";
 
 let nomeUsuario = {name: prompt("Qual o seu nome?")};
 const requisicaoNome = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants ', nomeUsuario);
@@ -11,6 +11,8 @@ setInterval(requisitarMensagens, 3000);
 setInterval(permanencia, 5000);
 
 setInterval(requisitarUsuarios, 10000);
+
+trocarAutomatico();
 
 let enter = document.querySelector("textarea")
 enter.addEventListener("keydown",
@@ -55,7 +57,7 @@ function rotularMensagens(objeto) {
     } else if(objeto.type === "message"){
         classe = "average";
         corpo = `para<span class="name"> ${objeto.to}:</span>`;
-    } else if(objeto.type === "private_message" && objeto.to === nomeUsuario.name){
+    } else if(objeto.type === "private_message" && (objeto.to === nomeUsuario.name || objeto.from === nomeUsuario.name)){
         classe = "private";
         corpo = `reservadamente para<span class="name"> ${objeto.to}:</span>`;
     } else {
@@ -86,11 +88,15 @@ function enviarMensagem() {
     return
   }
 
+  const visi = {
+        Público: "message",
+        Reservadamente: "private_message"};
+
   let objetoMensagem = {
     from: nomeUsuario.name,
-    to: "Todos",
+    to: contato,
     text: mensagem,
-    type: "message"
+    type: visi[visibilidade]
   }
 
   let requisicaoMensagem = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', objetoMensagem);
@@ -98,7 +104,6 @@ function enviarMensagem() {
   requisicaoMensagem.catch(reload);
 
   document.querySelector("textarea").value = "";
-
 }
 
 function reload (erro) {
@@ -112,23 +117,33 @@ function requisitarUsuarios(){
 
 function carregarUsuarios(resposta){
     let objetos = resposta.data;
+    let achou = false;
 
     let novaLista = objetos.map(function renderizarUsuarios(objeto){
+        if (objeto.name === contato){
+            achou = true;
+        }
         return `
         <li class="usuario" onclick="selecionarContato(this);">
             <div><ion-icon name="person-circle"></ion-icon></div>
             <div>${objeto.name}
-            <div class="check"><ion-icon name="checkmark-outline" class="check"></ion-icon></div>
+            <div class="check ${(objeto.name === contato) ? "selecionado" : ""}"><ion-icon name="checkmark-outline" class="check"></ion-icon></div>
             </div>
         </li>
         `
     });
 
+    if (achou === false){
+        contato = "Todos";
+    }
+
+    trocarAutomatico();
+
     document.querySelector(".listaUsuarios").innerHTML = `
         <li class="usuario" onclick="selecionarContato(this);">
             <div><ion-icon name="people"></ion-icon></div>
             <div>Todos
-            <div class="check selecionado"><ion-icon name="checkmark-outline" class="check"></ion-icon></div>
+            <div class="check ${(contato === "Todos") ? "selecionado" : ""}"><ion-icon name="checkmark-outline" class="check"></ion-icon></div>
             </div>
          </li>`
     ;
@@ -142,14 +157,45 @@ function mostrarContatos () {
     document.querySelector(".barraLateral").classList.toggle("show-up");
 }
 
+function trocarAutomatico () {
+    if(contato === "Todos") {
+        document.querySelector(".reservado").classList.add("desabilitado");
+        document.querySelector(".reservado .check").classList.remove("selecionado");
+        document.querySelector(".publico .check").classList.add("selecionado");
+        document.querySelector(".descricaoMensagem").innerHTML = `Enviando para ${contato}`;
+    }
+    else {
+        document.querySelector(".reservado").classList.remove("desabilitado");
+        document.querySelector(".descricaoMensagem").innerHTML = `Enviando para ${contato} ${(visibilidade === "Público") ? "(publicamente)" : "(reservadamente)"}`;
+    }
+}
+
 function selecionarContato (elemento) {
     contato = elemento.querySelector("div:nth-child(2)").innerText;
+
+    trocarAutomatico ();
+    
+
     document.querySelector(".listaUsuarios .selecionado").classList.remove("selecionado");
     elemento.querySelector("div.check").classList.add("selecionado"); 
 }
 
 function selecionarVisibilidade (elemento) {
+    if(contato === "Todos") {
+        return
+    }
+
     visibilidade = elemento.querySelector("div:nth-child(2)").innerText;
     document.querySelector(".visibilidade .selecionado").classList.remove("selecionado");
     elemento.querySelector("div.check").classList.add("selecionado"); 
+
+    trocarAutomatico();
 }
+
+// function descricaoMensagem () {
+//     if (contato === "Todos") {
+//         document.querySelector(".descricaoMensagem").innerHTML = `Enviando para ${contato}`;
+//       } else {
+//         document.querySelector(".descricaoMensagem").innerHTML = `Enviando para ${contato} ${(objetoMensagem.type === "message") ? "(publicamente)" : "(reservadamente)"}`;
+//       }
+// }

@@ -20,54 +20,17 @@
            </div>
 
            <div class="barraInferior">
-           <textarea placeholder="Escreva aqui..." style="border: none;" ></textarea>
+           <textarea placeholder='Escreva aqui...' style="border: none;" ></textarea>
+           <div class="descricaoMensagem"></div>
            <ion-icon name="paper-plane-outline" onclick="enviarMensagem();" class="send" ></ion-icon>
            </div>
 
-           <div class="cortina" onclick="mostrarContatos();"></div>
+           <div class="cortina oculto" onclick="mostrarContatos();"></div>
             <div class="barraLateral">
                 <div class="mensagemLateral">Escolha um contato para enviar mensagem:</div>
 
                 <ul class="listaUsuarios">
-                    <!-- <li class="usuario" onclick="">
-                        <div><ion-icon name="people"></ion-icon></div>
-                        <div>Todos</div>
-                    </li>
-                    
-                    <li class="usuario" onclick="">
-                        <div><ion-icon name="person-circle"></ion-icon></div>
-                        <div>Nome</div>
-                    </li>
-
-                    <li class="usuario" onclick="">
-                        <div><ion-icon name="person-circle"></ion-icon></div>
-                        <div>Nome</div>
-                    </li>
-
-                    <li class="usuario" onclick="">
-                        <div><ion-icon name="person-circle"></ion-icon></div>
-                        <div>Nome</div>
-                    </li>
-
-                    <li class="usuario" onclick="">
-                        <div><ion-icon name="person-circle"></ion-icon></div>
-                        <div>Nome</div>
-                    </li>
-
-                    <li class="usuario" onclick="">
-                        <div><ion-icon name="person-circle"></ion-icon></div>
-                        <div>Nome</div>
-                    </li>
-
-                    <li class="usuario" onclick="">
-                        <div><ion-icon name="person-circle"></ion-icon></div>
-                        <div>Nome</div>
-                    </li>
-
-                    <li class="usuario" onclick="">
-                        <div><ion-icon name="person-circle"></ion-icon></div>
-                        <div>Nome</div>
-                    </li> -->
+                   
                 </ul>
 
                 <div class="mensagemLateral">Escolha a visibilidade:</div>
@@ -81,7 +44,7 @@
                         
                     </li>
 
-                    <li class="reservado" onclick="selecionarVisibilidade (this);">
+                    <li class="reservado desabilitado" onclick="selecionarVisibilidade (this);">
                         <div><ion-icon name="lock-closed"></ion-icon></div>
                         <div>Reservadamente
                             <div class="check"><ion-icon name="checkmark-outline" class="check"></ion-icon></div>
