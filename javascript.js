@@ -7,6 +7,14 @@ setInterval(requisitarMensagens, 3000);
 
 setInterval(permanencia, 5000);
 
+let enter = document.querySelector("textarea")
+enter.addEventListener("keydown",
+function(e) {
+    if(e.key === "Enter"){
+        e.preventDefault();
+        enviarMensagem();
+    }
+})
 
 function perguntarNome () {
     nomeUsuario = {name: prompt("Nome já cadastrado, tente outro nome.")}
@@ -17,7 +25,7 @@ function perguntarNome () {
 
 function requisitarMensagens (resposta) {
     const promessaMensagens = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
-    promessaMensagens.then(carregarMensagens); 
+    promessaMensagens.then(carregarMensagens);
 }
 
 function carregarMensagens (resposta){
@@ -39,16 +47,14 @@ function rotularMensagens(objeto) {
     if(objeto.type === "status"){
         classe = "status";
         corpo = "";
-    }
-
-    if(objeto.type === "message"){
+    } else if(objeto.type === "message"){
         classe = "average";
         corpo = `para<span class="name"> ${objeto.to}:</span>`;
-    } 
-
-    if(objeto.type === "private_message"){
+    } else if(objeto.type === "private_message" && objeto.to === nomeUsuario.name){
         classe = "private";
         corpo = `reservadamente para<span class="name"> ${objeto.to}:</span>`;
+    } else {
+        return
     }
 
     const template = `
@@ -66,4 +72,30 @@ function rotularMensagens(objeto) {
 
 function permanencia () {
     const requisicaoStatus = axios.post('https://mock-api.driven.com.br/api/v6/uol/status', nomeUsuario);
+}
+
+function enviarMensagem() {
+  let mensagem = document.querySelector("textarea").value
+
+  if(mensagem === ""){
+    return
+  }
+
+  let objetoMensagem = {
+    from: nomeUsuario.name,
+    to: "Todos",
+    text: mensagem,
+    type: "message"
+  }
+
+  let requisicaoMensagem = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', objetoMensagem);
+  requisicaoMensagem.then(requisitarMensagens);
+  requisicaoMensagem.catch(reload);
+
+  document.querySelector("textarea").value = "";
+
+}
+
+function reload (erro) {
+    window.location.reload();
 }
