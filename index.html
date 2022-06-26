@@ -9,20 +9,86 @@
         <link rel="stylesheet" href="estilos.css">
     </head>
     <body>
-        <div class="topo">
-            <img src="./Imagens/logo.png" />
-            <div>  <ion-icon name="people"></ion-icon> </div>
-        </div>
+        
+           <div class="topo">
+               <img src="./Imagens/logo.png" />
+               <div>  <ion-icon name="people" onclick="mostrarContatos();"></ion-icon> </div>
+           </div>
 
-        <div class="container">
-            <ul> </ul>
+           <div class="container">
+               <ul class="listaMensagens"> </ul>
+           </div>
 
-        </div>
+           <div class="barraInferior">
+           <textarea placeholder="Escreva aqui..." style="border: none;" ></textarea>
+           <ion-icon name="paper-plane-outline" onclick="enviarMensagem();" class="send" ></ion-icon>
+           </div>
 
-        <div class="barraInferior">
-        <textarea placeholder="Escreva aqui..." style="border: none;" ></textarea>
-        <ion-icon name="paper-plane-outline" onclick="enviarMensagem();" class="send" ></ion-icon>
-        </div>
+           <div class="cortina oculto" onclick="mostrarContatos();"></div>
+            <div class="barraLateral oculto">
+                <div class="mensagemLateral">Escolha um contato para enviar mensagem:</div>
+
+                <ul class="listaUsuarios">
+                    <!-- <li class="usuario" onclick="">
+                        <div><ion-icon name="people"></ion-icon></div>
+                        <div>Todos</div>
+                    </li>
+                    
+                    <li class="usuario" onclick="">
+                        <div><ion-icon name="person-circle"></ion-icon></div>
+                        <div>Nome</div>
+                    </li>
+
+                    <li class="usuario" onclick="">
+                        <div><ion-icon name="person-circle"></ion-icon></div>
+                        <div>Nome</div>
+                    </li>
+
+                    <li class="usuario" onclick="">
+                        <div><ion-icon name="person-circle"></ion-icon></div>
+                        <div>Nome</div>
+                    </li>
+
+                    <li class="usuario" onclick="">
+                        <div><ion-icon name="person-circle"></ion-icon></div>
+                        <div>Nome</div>
+                    </li>
+
+                    <li class="usuario" onclick="">
+                        <div><ion-icon name="person-circle"></ion-icon></div>
+                        <div>Nome</div>
+                    </li>
+
+                    <li class="usuario" onclick="">
+                        <div><ion-icon name="person-circle"></ion-icon></div>
+                        <div>Nome</div>
+                    </li>
+
+                    <li class="usuario" onclick="">
+                        <div><ion-icon name="person-circle"></ion-icon></div>
+                        <div>Nome</div>
+                    </li> -->
+                </ul>
+
+                <div class="mensagemLateral">Escolha a visibilidade:</div>
+
+                <ul class="visibilidade">
+                    <li class="publico" onclick="">
+                        <div><ion-icon name="lock-open"></ion-icon></div>
+                        <div>Público</div>
+                    </li>
+
+                    <li class="reservado" onclick="">
+                        <div><ion-icon name="lock-closed"></ion-icon></div>
+                        <div>Reservadamente</div>
+                    </li>
+
+
+                </ul>
+
+
+            </div>
+           
 
 
 

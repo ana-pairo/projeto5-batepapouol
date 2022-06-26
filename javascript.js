@@ -7,6 +7,8 @@ setInterval(requisitarMensagens, 3000);
 
 setInterval(permanencia, 5000);
 
+setInterval(requisitarUsuarios, 10000);
+
 let enter = document.querySelector("textarea")
 enter.addEventListener("keydown",
 function(e) {
@@ -33,9 +35,9 @@ function carregarMensagens (resposta){
 
     let novoFeed = objetos.map(rotularMensagens);
 
-    document.querySelector("ul").innerHTML = novoFeed.join("");
+    document.querySelector(".listaMensagens").innerHTML = novoFeed.join("");
 
-    const ultimaMensagem = document.querySelector("ul > li:last-child");
+    const ultimaMensagem = document.querySelector(".listaMensagens > li:last-child");
     ultimaMensagem.scrollIntoView();
 }
 
@@ -98,4 +100,37 @@ function enviarMensagem() {
 
 function reload (erro) {
     window.location.reload();
+}
+
+function requisitarUsuarios(){
+    const promessaUsuarios = axios.get('https://mock-api.driven.com.br/api/v6/uol/participants');
+    promessaUsuarios.then(carregarUsuarios);
+}
+
+function carregarUsuarios(resposta){
+    let objetos = resposta.data;
+
+    let novaLista = objetos.map(function renderizarUsuarios(objeto){
+        return `
+        <li class="usuario" onclick="selecionarContato();">
+            <div><ion-icon name="person-circle"></ion-icon></div>
+            <div>${objeto.name}</div>
+        </li>
+        `
+    });
+
+    document.querySelector(".listaUsuarios").innerHTML = `
+        <li class="usuario" onclick="selecionarContato();">
+            <div><ion-icon name="people"></ion-icon></div>
+            <div>Todos</div>
+         </li>`
+    ;
+    
+    document.querySelector(".listaUsuarios").innerHTML += novaLista.join("");
+}
+
+function mostrarContatos () {
+    requisitarUsuarios();
+    document.querySelector(".cortina").classList.toggle("oculto");
+    document.querySelector(".barraLateral").classList.toggle("show-up");
 }
