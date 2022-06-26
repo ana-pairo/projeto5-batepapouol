@@ -24,8 +24,8 @@
            <ion-icon name="paper-plane-outline" onclick="enviarMensagem();" class="send" ></ion-icon>
            </div>
 
-           <div class="cortina oculto" onclick="mostrarContatos();"></div>
-            <div class="barraLateral oculto">
+           <div class="cortina" onclick="mostrarContatos();"></div>
+            <div class="barraLateral">
                 <div class="mensagemLateral">Escolha um contato para enviar mensagem:</div>
 
                 <ul class="listaUsuarios">
@@ -73,14 +73,19 @@
                 <div class="mensagemLateral">Escolha a visibilidade:</div>
 
                 <ul class="visibilidade">
-                    <li class="publico" onclick="">
+                    <li class="publico" onclick="selecionarVisibilidade (this);">
                         <div><ion-icon name="lock-open"></ion-icon></div>
-                        <div>Público</div>
+                        <div>Público
+                            <div class="check selecionado"><ion-icon name="checkmark-outline" class="check"></ion-icon></div>
+                        </div>
+                        
                     </li>
 
-                    <li class="reservado" onclick="">
+                    <li class="reservado" onclick="selecionarVisibilidade (this);">
                         <div><ion-icon name="lock-closed"></ion-icon></div>
-                        <div>Reservadamente</div>
+                        <div>Reservadamente
+                            <div class="check"><ion-icon name="checkmark-outline" class="check"></ion-icon></div>
+                        </div>
                     </li>
 
 

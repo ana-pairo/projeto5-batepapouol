@@ -1,3 +1,6 @@
+let contato = "Todos";
+let visibilidade = "publico";
+
 let nomeUsuario = {name: prompt("Qual o seu nome?")};
 const requisicaoNome = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants ', nomeUsuario);
 requisicaoNome.catch(perguntarNome);
@@ -112,17 +115,21 @@ function carregarUsuarios(resposta){
 
     let novaLista = objetos.map(function renderizarUsuarios(objeto){
         return `
-        <li class="usuario" onclick="selecionarContato();">
+        <li class="usuario" onclick="selecionarContato(this);">
             <div><ion-icon name="person-circle"></ion-icon></div>
-            <div>${objeto.name}</div>
+            <div>${objeto.name}
+            <div class="check"><ion-icon name="checkmark-outline" class="check"></ion-icon></div>
+            </div>
         </li>
         `
     });
 
     document.querySelector(".listaUsuarios").innerHTML = `
-        <li class="usuario" onclick="selecionarContato();">
+        <li class="usuario" onclick="selecionarContato(this);">
             <div><ion-icon name="people"></ion-icon></div>
-            <div>Todos</div>
+            <div>Todos
+            <div class="check selecionado"><ion-icon name="checkmark-outline" class="check"></ion-icon></div>
+            </div>
          </li>`
     ;
     
@@ -133,4 +140,16 @@ function mostrarContatos () {
     requisitarUsuarios();
     document.querySelector(".cortina").classList.toggle("oculto");
     document.querySelector(".barraLateral").classList.toggle("show-up");
+}
+
+function selecionarContato (elemento) {
+    contato = elemento.querySelector("div:nth-child(2)").innerText;
+    document.querySelector(".listaUsuarios .selecionado").classList.remove("selecionado");
+    elemento.querySelector("div.check").classList.add("selecionado"); 
+}
+
+function selecionarVisibilidade (elemento) {
+    visibilidade = elemento.querySelector("div:nth-child(2)").innerText;
+    document.querySelector(".visibilidade .selecionado").classList.remove("selecionado");
+    elemento.querySelector("div.check").classList.add("selecionado"); 
 }
