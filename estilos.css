@@ -1,279 +1,364 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500&display=swap");
 
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    background-color: #F3F3F3;
-    height: 100%;
-    width: 100%;
+  background-color: #f3f3f3;
+  height: 100%;
+  width: 100%;
+}
+
+.telaEntrada {
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  position: fixed;
+  background-color: #ffffff;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.telaEntrada img {
+  height: 92px;
+  width: 130px;
+  margin-top: 72px;
+  margin-bottom: 76px;
+}
+
+.avisoNome {
+  width: 100%;
+  height: 13px;
+  color: red;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.telaEntrada input {
+  height: 54px;
+  width: 261px;
+  background: #ffffff;
+  border: 1px solid #d7d7d7;
+  border-radius: 4px;
+  color: black;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  text-align: center;
+}
+
+.telaEntrada input::placeholder {
+  color: #aeaeae;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  text-align: center;
+}
+
+.botao {
+  margin-top: 15px;
+  height: 45px;
+  width: 109px;
+  background-color: #e7e7e7;
+  border-radius: 9px;
+  color: #696969;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carregando {
+  width: 100%;
+  height: calc(100% - 92px - 72px);
+  position: fixed;
+  top: calc(92px + 72px);
+  z-index: 5;
+  background-color: #ffffff;
+  padding-top: 40px;
+  color: black;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  text-align: center;
 }
 
 .cortina {
-    height: 100%;
-    width: 100%;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background-color: rgb(0, 0, 0, 0.6);
-    z-index: 2;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: rgb(0, 0, 0, 0.6);
+  z-index: 2;
 }
 
-.cortina.oculto {
-    display: none;
+.oculto {
+  display: none;
 }
 
 .barraLateral {
-    width: 259px; 
-    height: 100%;
-    position: fixed;
-    right: -259px;
-    z-index: 3;
-    background-color: #ffffff;
-    opacity: 0;
-    transition: all 300ms linear;
+  width: 259px;
+  height: 100%;
+  position: fixed;
+  right: -259px;
+  z-index: 3;
+  background-color: #ffffff;
+  opacity: 0;
+  transition: all 300ms linear;
 }
 
 .barraLateral.show-up {
-    opacity: 1;
-    right: 0;
-    overflow-y: scroll;
+  opacity: 1;
+  right: 0;
+  overflow-y: scroll;
 }
 
 .mensagemLateral {
-    padding: 0 45px;
-    width: 100%;
-    height: 84px;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 19px;
-    display: flex;
-    align-items: center;
-    text-align: center;    
-    color: #000000;
-
+  padding: 0 45px;
+  width: 100%;
+  height: 84px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #000000;
 }
 
 .listaUsuarios {
-    height: 300px;
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
+  height: 300px;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
 }
 
-.listaUsuarios li, .visibilidade li {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    position: relative;
+.listaUsuarios li,
+.visibilidade li {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  position: relative;
 }
 
-.listaUsuarios li:hover, .visibilidade li:hover {
-    background-color: rgb(128, 128, 128, 0.1);
+.listaUsuarios li:hover,
+.visibilidade li:hover {
+  background-color: rgb(128, 128, 128, 0.1);
 }
 
-.listaUsuarios ion-icon, .visibilidade ion-icon {
-    width: 25px;
-    height: 25px;
+.listaUsuarios ion-icon,
+.visibilidade ion-icon {
+  width: 25px;
+  height: 25px;
 }
-.usuario > div:nth-child(1), .publico > div:nth-child(1), .reservado > div:nth-child(1), .usuarioTodos > div:nth-child(1)  {
-    height: 36px;
-    width: 36px;
-    display: flex;
-    align-items: center;
-    margin-right: 10px;
+.usuario > div:nth-child(1),
+.publico > div:nth-child(1),
+.reservado > div:nth-child(1),
+.usuarioTodos > div:nth-child(1) {
+  height: 36px;
+  width: 36px;
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
 }
 
-.usuario > div:nth-child(2), .publico > div:nth-child(2), .reservado > div:nth-child(2), .usuarioTodos > div:nth-child(2)  {
-    width: 150px;
-    height: 20px;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 19px;
-    font-family: 'Roboto', sans-serif;
-    text-align:left ;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.usuario > div:nth-child(2),
+.publico > div:nth-child(2),
+.reservado > div:nth-child(2),
+.usuarioTodos > div:nth-child(2) {
+  width: 150px;
+  height: 20px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  font-family: "Roboto", sans-serif;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 div.check {
-    height: 15px;
-    display: flex;
-    align-items: center;
-    opacity: 0;
+  height: 15px;
+  display: flex;
+  align-items: center;
+  opacity: 0;
 }
 
 div.check.selecionado {
-    opacity: 1;
-    position: absolute;
-    left: 210px;
-    top: 20px;
+  opacity: 1;
+  position: absolute;
+  left: 210px;
+  top: 20px;
 }
 
 .check {
-    width: 15px;
-    height: 15px;
-    color: green;
+  width: 15px;
+  height: 15px;
+  color: green;
 }
 
 ul.visibilidade {
-    overflow-y: hidden;
+  overflow-y: hidden;
 }
 
 li.desabilitado {
-    background-color: rgb(128, 128, 128, 0.1);
-    opacity: 0.5;
-    color: rgb(128, 128, 128, 0.8);
+  background-color: rgb(128, 128, 128, 0.1);
+  opacity: 0.5;
+  color: rgb(128, 128, 128, 0.8);
 }
 
 .topo {
-    width: 100%;
-    height: 80px;
-    position: fixed;
-    top: 0;
-    background-color: #ffffff;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 80px;
+  position: fixed;
+  top: 0;
+  background-color: #ffffff;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .topo img {
-    width: 75px;
-    height: 53px;
-    margin-left: 22px;
+  width: 75px;
+  height: 53px;
+  margin-left: 22px;
 }
 
 .topo ion-icon {
-    width: 45px;
-    height: 45px;
-    margin-right: 22px;
+  width: 45px;
+  height: 45px;
+  margin-right: 22px;
 }
 
 .container {
-    width: 100%;
-    position: fixed;
-    top: 85px;
-    bottom: 85px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+  width: 100%;
+  position: fixed;
+  top: 85px;
+  bottom: 85px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
 
 ul {
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-wrap: wrap;
-    font-family: 'Roboto', sans-serif;
-    font-size: 14px;
-    color: #000000;
-    align-items: center;
-    overflow-y: scroll;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  color: #000000;
+  align-items: center;
+  overflow-y: scroll;
 }
 
-
 li {
-    width: 100%;
-    line-height: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 10px;
-    margin: 2px 0;
-    overflow-wrap: break-word;
+  width: 100%;
+  line-height: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  margin: 2px 0;
+  overflow-wrap: break-word;
 }
 
 li > span {
-    width: 100%;
+  width: 100%;
 }
 
 .status {
-    background-color: #dcdcdc;
+  background-color: #dcdcdc;
 }
 
 .average {
-    background-color: #ffffff;
+  background-color: #ffffff;
 }
 
 .private {
-    background-color: #FFDEDE;
+  background-color: #ffdede;
 }
 
 .name {
-    font-weight: 700;
+  font-weight: 700;
 }
 
 .hour {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    color: #aaaaaa;
-    margin-right: 5px;
-
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #aaaaaa;
+  margin-right: 5px;
 }
 
 .barraInferior {
-    width: 100%;
-    height: 80px;
-    background-color: #ffffff;
-    position: fixed;
-    bottom: 0px;
-    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  height: 80px;
+  background-color: #ffffff;
+  position: fixed;
+  bottom: 0px;
+  box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05);
 }
 
 textarea {
-    height: 45px;
-    width: 100%;
-    border: none;
-    padding-top: 10px;
-    padding-left: 15px;
-    padding-right: 50px;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400;
-    font-size: 15px;
-    outline: none;
-    display: flex;
-    flex-wrap: wrap;
-    overflow-y: auto;
-    resize: vertical;
+  height: 45px;
+  width: 100%;
+  border: none;
+  padding-top: 10px;
+  padding-left: 15px;
+  padding-right: 50px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  outline: none;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  resize: vertical;
 }
 
 .descricaoMensagem {
-    margin-top: 2px;
-    display: flex;
-    text-align: left;
-    height: 35px;
-    padding-left: 15px ;
-    padding-right: 35px;
-    font-weight: 300;
-    font-family: 'Roboto', sans-serif;
-    color: #505050;
-    font-size: 14px;
-    overflow-x: hidden;
-    line-height: 16px;
-    word-break: break-all;
-
+  margin-top: 2px;
+  display: flex;
+  text-align: left;
+  height: 35px;
+  padding-left: 15px;
+  padding-right: 35px;
+  font-weight: 300;
+  font-family: "Roboto", sans-serif;
+  color: #505050;
+  font-size: 14px;
+  overflow-x: hidden;
+  line-height: 16px;
+  word-break: break-all;
 }
 
-::placeholder{
-    font-style: italic;
-    color: #000000;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400;
-    font-size: 18px;
+textarea::placeholder {
+  font-style: italic;
+  color: #000000;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
 }
 
 .send {
-    width: 26px;
-    height: 26px;
-    position: absolute;
-    right: 20px;
-    top: calc(50% - 13px);
+  width: 26px;
+  height: 26px;
+  position: absolute;
+  right: 20px;
+  top: calc(50% - 13px);
 }
-
-

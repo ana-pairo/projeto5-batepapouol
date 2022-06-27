@@ -1,21 +1,9 @@
 let contato = "";
 let visibilidade = "Público";
+let nomeUsuario = {name: ""};
 
-let nomeUsuario = {name: prompt("Qual o seu nome?")};
-const requisicaoNome = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants ', nomeUsuario);
-requisicaoNome.catch(perguntarNome);
-requisicaoNome.then(requisitarMensagens);
-
-setInterval(requisitarMensagens, 3000);
-
-setInterval(permanencia, 5000);
-
-setInterval(requisitarUsuarios, 10000);
-
-trocarAutomatico();
-
-let enter = document.querySelector("textarea")
-enter.addEventListener("keydown",
+let enter_mensagem = document.querySelector("textarea")
+enter_mensagem.addEventListener("keydown",
 function(e) {
     if(e.key === "Enter"){
         e.preventDefault();
@@ -23,14 +11,41 @@ function(e) {
     }
 })
 
-function perguntarNome () {
-    nomeUsuario = {name: prompt("Nome já cadastrado, tente outro nome.")}
-    const requisicaoNome = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', nomeUsuario);
-    requisicaoNome.catch(perguntarNome)
-    requisicaoNome.then(requisitarMensagens)
+let enter_login = document.querySelector("input")
+enter_login.addEventListener("keydown",
+function(e) {
+    if(e.key === "Enter"){
+        e.preventDefault();
+        logar();
+    }
+})
+
+function logar() {
+    document.querySelector(".carregando").classList.remove("oculto");
+    nomeUsuario = {name: document.querySelector(".telaEntrada input").value};
+    const requisicaoNome = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants ', nomeUsuario);
+    requisicaoNome.catch(perguntarNome);
+    requisicaoNome.then(loginSucesso);
 }
 
-function requisitarMensagens (resposta) {
+function loginSucesso() {
+    setInterval(requisitarMensagens, 3000);
+    setInterval(permanencia, 5000);
+    setInterval(requisitarUsuarios, 10000);
+    trocarAutomatico();
+    requisitarMensagens();
+}
+
+function perguntarNome () {
+    document.querySelector(".carregando").classList.add("oculto");
+    if (nomeUsuario.name){
+        document.querySelector(".avisoNome").innerHTML = `O nome ${nomeUsuario.name} já está cadastrado, tente outro nome.`;
+    } else {
+        document.querySelector(".avisoNome").innerHTML = `Por favor digite um nome válido.`;
+    }
+}
+
+function requisitarMensagens () {
     const promessaMensagens = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
     promessaMensagens.then(carregarMensagens);
 }
@@ -44,6 +59,8 @@ function carregarMensagens (resposta){
 
     const ultimaMensagem = document.querySelector(".listaMensagens > li:last-child");
     ultimaMensagem.scrollIntoView();
+
+    document.querySelector(".telaEntrada").classList.add("oculto");
 }
 
 function rotularMensagens(objeto) {
