@@ -1,4 +1,4 @@
-let contato = "Todos";
+let contato = "";
 let visibilidade = "Público";
 
 let nomeUsuario = {name: prompt("Qual o seu nome?")};
@@ -94,7 +94,7 @@ function enviarMensagem() {
 
   let objetoMensagem = {
     from: nomeUsuario.name,
-    to: contato,
+    to: (contato === "" )? "Todos" : contato,
     text: mensagem,
     type: visi[visibilidade]
   }
@@ -134,16 +134,16 @@ function carregarUsuarios(resposta){
     });
 
     if (achou === false){
-        contato = "Todos";
+        contato = "";
     }
 
     trocarAutomatico();
 
     document.querySelector(".listaUsuarios").innerHTML = `
-        <li class="usuario" onclick="selecionarContato(this);">
+        <li class="usuarioTodos" onclick="selecionarContato(this);">
             <div><ion-icon name="people"></ion-icon></div>
             <div>Todos
-            <div class="check ${(contato === "Todos") ? "selecionado" : ""}"><ion-icon name="checkmark-outline" class="check"></ion-icon></div>
+            <div class="check ${(contato === "") ? "selecionado" : ""}"><ion-icon name="checkmark-outline" class="check"></ion-icon></div>
             </div>
          </li>`
     ;
@@ -158,11 +158,12 @@ function mostrarContatos () {
 }
 
 function trocarAutomatico () {
-    if(contato === "Todos") {
+    if(contato === "") {
         document.querySelector(".reservado").classList.add("desabilitado");
         document.querySelector(".reservado .check").classList.remove("selecionado");
         document.querySelector(".publico .check").classList.add("selecionado");
-        document.querySelector(".descricaoMensagem").innerHTML = `Enviando para ${contato}`;
+        document.querySelector(".descricaoMensagem").innerHTML = `Enviando para Todos`;
+        visibilidade = "Público"
     }
     else {
         document.querySelector(".reservado").classList.remove("desabilitado");
@@ -171,7 +172,12 @@ function trocarAutomatico () {
 }
 
 function selecionarContato (elemento) {
-    contato = elemento.querySelector("div:nth-child(2)").innerText;
+
+    if(elemento.classList.contains("usuarioTodos")){
+        contato = "";
+    } else {
+        contato = elemento.querySelector("div:nth-child(2)").innerText;
+    }
 
     trocarAutomatico ();
     
@@ -181,7 +187,7 @@ function selecionarContato (elemento) {
 }
 
 function selecionarVisibilidade (elemento) {
-    if(contato === "Todos") {
+    if(contato === "") {
         return
     }
 
