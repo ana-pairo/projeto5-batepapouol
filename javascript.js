@@ -197,11 +197,3 @@ function selecionarVisibilidade (elemento) {
 
     trocarAutomatico();
 }
-
-// function descricaoMensagem () {
-//     if (contato === "Todos") {
-//         document.querySelector(".descricaoMensagem").innerHTML = `Enviando para ${contato}`;
-//       } else {
-//         document.querySelector(".descricaoMensagem").innerHTML = `Enviando para ${contato} ${(objetoMensagem.type === "message") ? "(publicamente)" : "(reservadamente)"}`;
-//       }
-// }

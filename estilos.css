@@ -38,6 +38,7 @@ body {
 .barraLateral.show-up {
     opacity: 1;
     right: 0;
+    overflow-y: scroll;
 }
 
 .mensagemLateral {
@@ -56,7 +57,7 @@ body {
 }
 
 .listaUsuarios {
-    height: 350px;
+    height: 300px;
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
@@ -64,10 +65,11 @@ body {
 }
 
 .listaUsuarios li, .visibilidade li {
+    height: 50px;
     display: flex;
     align-items: center;
     flex-direction: row;
-    justify-content: space-around;
+    position: relative;
 }
 
 .listaUsuarios li:hover, .visibilidade li:hover {
@@ -80,20 +82,22 @@ body {
 }
 .usuario > div:nth-child(1), .publico > div:nth-child(1), .reservado > div:nth-child(1), .usuarioTodos > div:nth-child(1)  {
     height: 36px;
+    width: 36px;
     display: flex;
     align-items: center;
+    margin-right: 10px;
 }
 
 .usuario > div:nth-child(2), .publico > div:nth-child(2), .reservado > div:nth-child(2), .usuarioTodos > div:nth-child(2)  {
     width: 150px;
-    align-items: center;
+    height: 20px;
     font-size: 16px;
     font-weight: 400;
     line-height: 19px;
     font-family: 'Roboto', sans-serif;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    text-align:left ;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 div.check {
@@ -105,6 +109,9 @@ div.check {
 
 div.check.selecionado {
     opacity: 1;
+    position: absolute;
+    left: 210px;
+    top: 20px;
 }
 
 .check {
@@ -118,11 +125,10 @@ ul.visibilidade {
 }
 
 li.desabilitado {
-    background-color: rgb(128, 128, 128, 0.2);
-    color: rgb(128, 128, 128, 0.2);
+    background-color: rgb(128, 128, 128, 0.1);
+    opacity: 0.5;
+    color: rgb(128, 128, 128, 0.8);
 }
-
-
 
 .topo {
     width: 100%;
@@ -202,8 +208,6 @@ li > span {
     font-weight: 700;
 }
 
-
-
 .hour {
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
@@ -223,7 +227,7 @@ li > span {
 }
 
 textarea {
-    height: 50px;
+    height: 45px;
     width: 100%;
     border: none;
     padding-top: 10px;
@@ -240,14 +244,19 @@ textarea {
 }
 
 .descricaoMensagem {
+    margin-top: 2px;
     display: flex;
-    align-items: flex-start;
-    height: 30px;
+    text-align: left;
+    height: 35px;
     padding-left: 15px ;
+    padding-right: 35px;
     font-weight: 300;
     font-family: 'Roboto', sans-serif;
     color: #505050;
     font-size: 14px;
+    overflow-x: hidden;
+    line-height: 16px;
+    word-break: break-all;
 
 }
 
